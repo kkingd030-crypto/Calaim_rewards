@@ -1,49 +1,419 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download Center | Fast & Secure</title>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0f172a; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .container { background-color: #1e293b; padding: 2rem; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); text-align: center; max-width: 400px; width: 90%; }
-        .file-icon { font-size: 50px; margin-bottom: 1rem; }
-        h1 { font-size: 1.5rem; margin-bottom: 0.5rem; }
-        p { color: #94a3b8; font-size: 0.9rem; margin-bottom: 1.5rem; }
-        .file-info { background: #334155; padding: 10px; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.8rem; text-align: left; }
-        .btn { background-color: #3b82f6; color: white; padding: 12px 24px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; text-decoration: none; display: block; transition: 0.3s; }
-        .btn:hover { background-color: #2563eb; }
-        .security { margin-top: 1rem; font-size: 0.7rem; color: #4ade80; display: flex; justify-content: center; gap: 10px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MobileVault - Premium Games & Tools</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0d0d0d; color: #fff; font-family: 'Segoe UI', sans-serif; max-width: 480px; margin: 0 auto; min-height: 100vh; }
+
+/* NAVBAR */
+.navbar { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: #111; position: sticky; top: 0; z-index: 50; }
+.nav-brand { display: flex; align-items: center; gap: 10px; }
+.nav-logo { width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, #00e5c8, #0099ff); display: flex; align-items: center; justify-content: center; font-size: 20px; }
+.nav-texts .nav-title { font-size: 17px; font-weight: 800; color: #00e5c8; }
+.nav-texts .nav-sub { font-size: 10px; color: #666; }
+.login-btn { background: #00e5c8; color: #000; border: none; padding: 9px 16px; border-radius: 25px; font-weight: 700; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 5px; }
+
+/* SLIDER */
+.slider-wrap { position: relative; height: 210px; overflow: hidden; background: #111; }
+.slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.5s; }
+.slide.active { opacity: 1; }
+.slide img { width: 100%; height: 100%; object-fit: cover; }
+.slide-placeholder { width: 100%; height: 100%; background: #1a1a1a; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 8px; color: #333; border: 2px dashed #2a2a2a; }
+.slide-placeholder span { font-size: 13px; }
+.dots { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 5px; }
+.dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255,255,255,0.25); cursor: pointer; transition: all 0.3s; border: none; }
+.dot.active { background: #00e5c8; width: 18px; border-radius: 4px; }
+
+/* TAGLINE */
+.tagline { padding: 20px 16px; text-align: center; border-bottom: 1px solid #1a1a1a; }
+.tagline h2 { font-size: 15px; color: #00e5c8; font-weight: 700; line-height: 1.5; }
+
+/* SEARCH */
+.search-wrap { margin: 14px 16px; position: relative; }
+.search-wrap input { width: 100%; background: #1a1a1a; border: 1px solid #252525; border-radius: 30px; padding: 13px 20px 13px 44px; color: #fff; font-size: 14px; outline: none; transition: border 0.2s; }
+.search-wrap input:focus { border-color: #00e5c844; }
+.search-wrap input::placeholder { color: #444; }
+.s-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #444; font-size: 16px; }
+
+/* TABS */
+.tabs { display: flex; gap: 7px; padding: 0 16px 14px; overflow-x: auto; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { background: #1a1a1a; border: 1px solid #252525; color: #777; padding: 7px 14px; border-radius: 20px; font-size: 12px; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+.tab.active { background: #00e5c8; color: #000; font-weight: 700; border-color: #00e5c8; }
+
+/* SECTION TITLE */
+.section-title { padding: 4px 16px 10px; font-size: 13px; color: #555; text-transform: uppercase; letter-spacing: 1px; }
+
+/* CARDS LIST */
+.cards-list { padding: 0 16px; display: flex; flex-direction: column; gap: 10px; }
+.card { background: #161616; border-radius: 16px; padding: 12px; display: flex; align-items: center; gap: 12px; cursor: pointer; border: 1px solid #1e1e1e; transition: all 0.2s; }
+.card:hover { background: #1c1c1c; border-color: #00e5c822; transform: translateY(-1px); }
+.card-icon { width: 60px; height: 60px; border-radius: 13px; overflow: hidden; flex-shrink: 0; background: #1e1e1e; }
+.card-icon img { width: 100%; height: 100%; object-fit: cover; }
+.card-icon-ph { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #333; text-align: center; }
+.card-info { flex: 1; min-width: 0; }
+.card-name { font-size: 14px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-meta { font-size: 11px; color: #555; margin: 2px 0; }
+.card-badge { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px; margin-top: 4px; font-weight: 600; }
+.badge-game { background: #00e5c822; color: #00e5c8; }
+.badge-tool { background: #0099ff22; color: #0099ff; }
+.stars-row { display: flex; align-items: center; gap: 1px; margin-top: 3px; }
+.st { font-size: 11px; }
+.rn { font-size: 11px; color: #666; margin-left: 3px; }
+.card-arrow { color: #333; font-size: 18px; flex-shrink: 0; }
+
+/* ========== DETAIL PAGE ========== */
+.detail-page { display: none; position: fixed; inset: 0; background: #0d0d0d; overflow-y: auto; z-index: 200; max-width: 480px; margin: 0 auto; }
+.detail-page.open { display: block; }
+
+/* back button */
+.back-btn { position: absolute; top: 14px; left: 14px; z-index: 10; width: 38px; height: 38px; background: rgba(0,0,0,0.65); border-radius: 50%; border: none; color: #fff; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(8px); }
+
+/* screenshot slider */
+.ss-slider { position: relative; width: 100%; height: 220px; overflow: hidden; background: #111; }
+.ss-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.4s; }
+.ss-slide.active { opacity: 1; }
+.ss-slide img { width: 100%; height: 100%; object-fit: cover; }
+.ss-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); border: none; color: #fff; font-size: 18px; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); z-index: 5; }
+.ss-arrow.left { left: 10px; }
+.ss-arrow.right { right: 10px; }
+.ss-dots { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); display: flex; gap: 4px; }
+.ss-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.3); border: none; cursor: pointer; transition: all 0.3s; }
+.ss-dot.active { background: #00e5c8; width: 14px; border-radius: 3px; }
+
+/* detail content */
+.detail-body { padding: 18px 16px; }
+.detail-top { display: flex; gap: 14px; margin-bottom: 20px; }
+.detail-icon { width: 70px; height: 70px; border-radius: 16px; overflow: hidden; border: 2px solid #00e5c8; flex-shrink: 0; background: #1a1a1a; }
+.detail-icon img { width: 100%; height: 100%; object-fit: cover; }
+.detail-name { font-size: 20px; font-weight: 800; line-height: 1.2; }
+.detail-sub { font-size: 12px; color: #666; margin-top: 5px; }
+.detail-stars { display: flex; align-items: center; gap: 2px; margin-top: 6px; }
+
+/* download buttons */
+.dl-android { width: 100%; padding: 14px; background: #00e5c8; color: #000; border: none; border-radius: 30px; font-size: 15px; font-weight: 700; cursor: pointer; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 8px; transition: opacity 0.2s; }
+.dl-android:hover { opacity: 0.9; }
+.dl-ios { width: 100%; padding: 14px; background: #f0f0f0; color: #000; border: none; border-radius: 30px; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: opacity 0.2s; }
+.dl-ios:hover { opacity: 0.9; }
+
+/* app info */
+.info-card { background: #161616; border-radius: 16px; padding: 18px; margin-top: 16px; border: 1px solid #1e1e1e; }
+.info-card h3 { color: #00e5c8; font-size: 15px; margin-bottom: 12px; }
+.info-row { padding: 9px 0; border-bottom: 1px solid #1e1e1e; }
+.info-row:last-child { border: none; }
+.info-lbl { font-size: 10px; color: #444; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
+.info-val { font-size: 13px; color: #bbb; }
+
+.empty-state { padding: 40px 16px; text-align: center; color: #333; font-size: 14px; }
+.bottom-space { height: 40px; }
+</style>
 </head>
 <body>
 
-<div class="container">
-    <div class="file-icon">📦</div>
-    <h1>Lag_Fixer_Pro_v2.zip</h1>
-    <p>Optimize your PC and Console performance instantly.</p>
-    
-    <div class="file-info">
-        <div><strong>Size:</strong> 14.2 MB</div>
-        <div><strong>Type:</strong> Compressed Script</div>
-        <div><strong>Downloads:</strong> 128,402</div>
-    </div>
+<!-- ===== MAIN PAGE ===== -->
+<div id="mainPage">
 
-    <a href="#" class="btn" id="downloadBtn">Download Now</a>
-
-    <div class="security">
-        <span>✓ Virus-Free</span>
-        <span>✓ SSL Secure</span>
-        <span>✓ Verified</span>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <div class="nav-logo">📦</div>
+      <div class="nav-texts">
+        <div class="nav-title">MobileVault</div>
+        <div class="nav-sub">Games & Tools Unlocked</div>
+      </div>
     </div>
+    <button class="login-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+      Login
+    </button>
+  </nav>
+
+  <!-- SLIDER - زيد صورك هنا -->
+  <div class="slider-wrap" id="mainSlider">
+    <!-- SLIDE 1 -->
+    <div class="slide active">
+      <img src="banner1.jpg" alt="banner1" onerror="this.parentElement.innerHTML='<div class=\'slide-placeholder\'><span>🖼️</span><span>banner1.jpg</span></div>'">
+    </div>
+    <!-- SLIDE 2 -->
+    <div class="slide">
+      <img src="banner2.jpg" alt="banner2" onerror="this.parentElement.innerHTML='<div class=\'slide-placeholder\'><span>🖼️</span><span>banner2.jpg</span></div>'">
+    </div>
+    <!-- SLIDE 3 -->
+    <div class="slide">
+      <img src="banner3.jpg" alt="banner3" onerror="this.parentElement.innerHTML='<div class=\'slide-placeholder\'><span>🖼️</span><span>banner3.jpg</span></div>'">
+    </div>
+    <div class="dots" id="mainDots">
+      <button class="dot active" onclick="mainGoTo(0)"></button>
+      <button class="dot" onclick="mainGoTo(1)"></button>
+      <button class="dot" onclick="mainGoTo(2)"></button>
+    </div>
+  </div>
+
+  <div class="tagline">
+    <h2>🔥 Your favorite PC Games & Tools — now on Mobile</h2>
+  </div>
+
+  <div class="search-wrap">
+    <span class="s-icon">🔍</span>
+    <input type="text" placeholder="Search games & tools..." id="searchInput" oninput="renderCards()">
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="setTab('all',this)">🎮 All</button>
+    <button class="tab" onclick="setTab('game',this)">🕹️ Games</button>
+    <button class="tab" onclick="setTab('tool',this)">🛠️ Tools</button>
+    <button class="tab" onclick="setTab('racing',this)">🏁 Racing</button>
+    <button class="tab" onclick="setTab('openworld',this)">🌍 Open World</button>
+    <button class="tab" onclick="setTab('simulation',this)">🚛 Simulation</button>
+  </div>
+
+  <div class="section-title" id="sectionTitle">All Apps</div>
+  <div class="cards-list" id="cardsList"></div>
+  <div class="bottom-space"></div>
 </div>
 
-<script>
-    document.getElementById('downloadBtn').onclick = function() {
-        alert("Please complete a quick human verification to start your download.");
-        // هنا غتحط الكود ديال OGADS مورا ما تتقبل
-    };
-</script>
 
+<!-- ===== DETAIL PAGE ===== -->
+<div class="detail-page" id="detailPage">
+  <button class="back-btn" onclick="closeDetail()">&#8592;</button>
+
+  <!-- Screenshot Slider -->
+  <div class="ss-slider" id="ssSlider">
+    <!-- screenshots كيتحطو ديناميكياً -->
+  </div>
+
+  <div class="detail-body">
+    <div class="detail-top">
+      <div class="detail-icon">
+        <img id="dIcon" src="" alt="">
+      </div>
+      <div style="flex:1">
+        <div class="detail-name" id="dName"></div>
+        <div class="detail-sub" id="dSub"></div>
+        <div class="detail-stars" id="dStars"></div>
+      </div>
+    </div>
+
+    <button class="dl-android" id="dlAndroid">
+      🤖 Get for Android
+    </button>
+    <button class="dl-ios" id="dlIOS">
+      🍎 Get for iOS
+    </button>
+
+    <div class="info-card">
+      <h3>App Information</h3>
+      <div class="info-row"><div class="info-lbl">Updated Date</div><div class="info-val" id="dDate"></div></div>
+      <div class="info-row"><div class="info-lbl">App Name</div><div class="info-val" id="dAppName"></div></div>
+      <div class="info-row"><div class="info-lbl">Version</div><div class="info-val" id="dVersion"></div></div>
+      <div class="info-row"><div class="info-lbl">Category</div><div class="info-val" id="dCategory"></div></div>
+      <div class="info-row"><div class="info-lbl">Size</div><div class="info-val" id="dSize"></div></div>
+    </div>
+  </div>
+  <div class="bottom-space"></div>
+</div>
+
+
+<script>
+// ================================================================
+//  ⬇️  DATA — زيد التطبيقات ديالك هنا
+// ================================================================
+const apps = [
+  {
+    id: 1,
+    name: "BeamNG.drive Mobile",
+    type: "game",          // "game" أو "tool"
+    category: "simulation",
+    icon: "icons/beamng.png",
+    screenshots: [         // صور الـ detail page — زيد وحيد على الأقل
+      "screens/beamng_1.jpg",
+      "screens/beamng_2.jpg",
+      "screens/beamng_3.jpg",
+    ],
+    version: "v1.0",
+    date: "January 14, 2025",
+    appname: "com.beamng.mobile",
+    size: "1.2 GB",
+    stars: 4,
+    desc: "Realistic Soft-Body Physics Simulation",
+    android_link: "YOUR_OGADS_LINK_HERE",
+    ios_link: "YOUR_OGADS_LINK_HERE",
+  },
+  {
+    id: 2,
+    name: "GTA V Mobile",
+    type: "game",
+    category: "openworld",
+    icon: "icons/gtav.png",
+    screenshots: [
+      "screens/gtav_1.jpg",
+      "screens/gtav_2.jpg",
+    ],
+    version: "v1.1",
+    date: "January 20, 2025",
+    appname: "com.gtav.mobile",
+    size: "2.8 GB",
+    stars: 5,
+    desc: "Open World Action Adventure",
+    android_link: "YOUR_OGADS_LINK_HERE",
+    ios_link: "YOUR_OGADS_LINK_HERE",
+  },
+  {
+    id: 3,
+    name: "Game Booster Pro",
+    type: "tool",           // هدا tool مش game
+    category: "tool",
+    icon: "icons/booster.png",
+    screenshots: [
+      "screens/booster_1.jpg",
+    ],
+    version: "v3.2",
+    date: "February 5, 2025",
+    appname: "com.gamebooster.pro",
+    size: "45 MB",
+    stars: 4,
+    desc: "Boost your phone performance for gaming",
+    android_link: "YOUR_OGADS_LINK_HERE",
+    ios_link: "YOUR_OGADS_LINK_HERE",
+  },
+  // ← زيد كثر من هنا بنفس الشكل
+];
+// ================================================================
+
+let curTab = 'all';
+let ssIndex = 0;
+let ssSlides = [];
+
+// ---- RENDER CARDS ----
+function renderCards() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  const list = document.getElementById('cardsList');
+  const title = document.getElementById('sectionTitle');
+
+  const filtered = apps.filter(a => {
+    const matchTab = curTab === 'all' || a.type === curTab || a.category === curTab;
+    const matchQ = a.name.toLowerCase().includes(q);
+    return matchTab && matchQ;
+  });
+
+  const labels = {all:'All Apps', game:'Games', tool:'Tools', racing:'Racing Games', openworld:'Open World', simulation:'Simulation'};
+  title.textContent = labels[curTab] || 'All Apps';
+
+  if (!filtered.length) {
+    list.innerHTML = '<div class="empty-state">😕 No results found</div>';
+    return;
+  }
+
+  list.innerHTML = filtered.map(a => `
+    <div class="card" onclick="openDetail(${a.id})">
+      <div class="card-icon">
+        <img src="${a.icon}" alt="${a.name}"
+          onerror="this.outerHTML='<div class=\'card-icon-ph\'>No IMG</div>'">
+      </div>
+      <div class="card-info">
+        <div class="card-name">${a.name}</div>
+        <div class="card-meta">${a.version} · ${a.date}</div>
+        <span class="card-badge ${a.type==='tool'?'badge-tool':'badge-game'}">
+          ${a.type==='tool'?'🛠️ Tool':'🎮 Game'}
+        </span>
+        <div class="stars-row">
+          ${[1,2,3,4,5].map(i=>`<span class="st" style="color:${i<=a.stars?'#f5a623':'#2a2a2a'}">★</span>`).join('')}
+          <span class="rn">${a.stars}.0</span>
+        </div>
+      </div>
+      <span class="card-arrow">›</span>
+    </div>
+  `).join('');
+}
+
+function setTab(tab, btn) {
+  curTab = tab;
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCards();
+}
+
+// ---- DETAIL PAGE ----
+function openDetail(id) {
+  const a = apps.find(x => x.id === id);
+
+  // fill info
+  document.getElementById('dIcon').src = a.icon;
+  document.getElementById('dName').textContent = a.name;
+  document.getElementById('dSub').textContent = a.desc;
+  document.getElementById('dDate').textContent = a.date;
+  document.getElementById('dAppName').textContent = a.appname;
+  document.getElementById('dVersion').textContent = a.version;
+  document.getElementById('dCategory').textContent = a.category;
+  document.getElementById('dSize').textContent = a.size;
+
+  // stars
+  document.getElementById('dStars').innerHTML =
+    [1,2,3,4,5].map(i=>`<span style="color:${i<=a.stars?'#f5a623':'#2a2a2a'};font-size:14px;">★</span>`).join('') +
+    `<span style="font-size:12px;color:#666;margin-left:4px;">${a.stars}.0</span>`;
+
+  // download buttons
+  document.getElementById('dlAndroid').onclick = () => window.open(a.android_link, '_blank');
+  document.getElementById('dlIOS').onclick = () => window.open(a.ios_link, '_blank');
+
+  // build screenshot slider
+  const ss = document.getElementById('ssSlider');
+  ssSlides = a.screenshots;
+  ssIndex = 0;
+
+  ss.innerHTML = ssSlides.map((src, i) => `
+    <div class="ss-slide ${i===0?'active':''}" data-idx="${i}">
+      <img src="${src}" alt="screenshot ${i+1}"
+        onerror="this.style.display='none'">
+    </div>
+  `).join('') +
+  (ssSlides.length > 1 ? `
+    <button class="ss-arrow left" onclick="ssNav(-1)">&#8249;</button>
+    <button class="ss-arrow right" onclick="ssNav(1)">&#8250;</button>
+    <div class="ss-dots">
+      ${ssSlides.map((_,i)=>`<button class="ss-dot ${i===0?'active':''}" onclick="ssGoTo(${i})"></button>`).join('')}
+    </div>
+  ` : '');
+
+  document.getElementById('detailPage').classList.add('open');
+  document.getElementById('detailPage').scrollTop = 0;
+}
+
+function ssNav(dir) {
+  ssGoTo((ssIndex + dir + ssSlides.length) % ssSlides.length);
+}
+
+function ssGoTo(n) {
+  const ss = document.getElementById('ssSlider');
+  ss.querySelectorAll('.ss-slide').forEach((el,i) => el.classList.toggle('active', i===n));
+  ss.querySelectorAll('.ss-dot').forEach((el,i) => el.classList.toggle('active', i===n));
+  ssIndex = n;
+}
+
+function closeDetail() {
+  document.getElementById('detailPage').classList.remove('open');
+}
+
+// ---- MAIN SLIDER ----
+let mCur = 0;
+const mSlides = document.querySelectorAll('#mainSlider .slide');
+const mDots = document.querySelectorAll('#mainDots .dot');
+
+function mainGoTo(n) {
+  mSlides[mCur].classList.remove('active');
+  mDots[mCur].classList.remove('active');
+  mCur = n;
+  mSlides[mCur].classList.add('active');
+  mDots[mCur].classList.add('active');
+}
+
+setInterval(() => mainGoTo((mCur + 1) % mSlides.length), 3500);
+
+// ---- INIT ----
+renderCards();
+</script>
 </body>
 </html>
