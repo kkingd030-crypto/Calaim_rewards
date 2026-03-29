@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MobileVault - Premium Games & Tools</title>
+<script type="text/javascript" id="ogjs" src="https://appchecker.store/cl/js/mn28g"></script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { background: #0d0d0d; color: #fff; font-family: 'Segoe UI', sans-serif; max-width: 480px; margin: 0 auto; min-height: 100vh; }
@@ -110,6 +110,9 @@ body { background: #0d0d0d; color: #fff; font-family: 'Segoe UI', sans-serif; ma
 
 .empty-state { padding: 40px 16px; text-align: center; color: #333; font-size: 14px; }
 .bottom-space { height: 40px; }
+
+/* Logo Styles */
+.btn-logo { width: 18px; height: 18px; object-fit: contain; }
 </style>
 </head>
 <body>
@@ -131,19 +134,19 @@ body { background: #0d0d0d; color: #fff; font-family: 'Segoe UI', sans-serif; ma
     </button>
   </nav>
 
-  <!-- SLIDER - زيد صورك هنا -->
+  <!-- SLIDER -->
   <div class="slider-wrap" id="mainSlider">
     <!-- SLIDE 1 -->
     <div class="slide active">
-      <img src="banner1.jpg" alt="banner1" onerror="this.parentElement.innerHTML='<div class=\'slide-placeholder\'><span>🖼️</span><span>banner1.jpg</span></div>'">
+      <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663324007517/oUSeviOyjiDSitll.jpg" alt="banner1">
     </div>
     <!-- SLIDE 2 -->
     <div class="slide">
-      <img src="banner2.jpg" alt="banner2" onerror="this.parentElement.innerHTML='<div class=\'slide-placeholder\'><span>🖼️</span><span>banner2.jpg</span></div>'">
+      <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663324007517/bhQbiEtDqpWIdaZq.jpg" alt="banner2">
     </div>
     <!-- SLIDE 3 -->
     <div class="slide">
-      <img src="banner3.jpg" alt="banner3" onerror="this.parentElement.innerHTML='<div class=\'slide-placeholder\'><span>🖼️</span><span>banner3.jpg</span></div>'">
+      <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663324007517/ZzWADepMUSYmEhHU.jpg" alt="banner3">
     </div>
     <div class="dots" id="mainDots">
       <button class="dot active" onclick="mainGoTo(0)"></button>
@@ -182,7 +185,7 @@ body { background: #0d0d0d; color: #fff; font-family: 'Segoe UI', sans-serif; ma
 
   <!-- Screenshot Slider -->
   <div class="ss-slider" id="ssSlider">
-    <!-- screenshots كيتحطو ديناميكياً -->
+    <!-- screenshots dynamically populated -->
   </div>
 
   <div class="detail-body">
@@ -197,11 +200,11 @@ body { background: #0d0d0d; color: #fff; font-family: 'Segoe UI', sans-serif; ma
       </div>
     </div>
 
-    <button class="dl-android" id="dlAndroid">
-      🤖 Get for Android
+    <button class="dl-android" id="dlAndroid" onclick="og_load();">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Android_robot.svg" class="btn-logo" alt="Android"> Get for Android
     </button>
-    <button class="dl-ios" id="dlIOS">
-      🍎 Get for iOS
+    <button class="dl-ios" id="dlIOS" onclick="og_load();">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" class="btn-logo" alt="Apple"> Get for iOS
     </button>
 
     <div class="info-card">
@@ -218,20 +221,16 @@ body { background: #0d0d0d; color: #fff; font-family: 'Segoe UI', sans-serif; ma
 
 
 <script>
-// ================================================================
-//  ⬇️  DATA — زيد التطبيقات ديالك هنا
-// ================================================================
 const apps = [
   {
     id: 1,
     name: "BeamNG.drive Mobile",
-    type: "game",          // "game" أو "tool"
+    type: "game",
     category: "simulation",
-    icon: "icons/beamng.png",
-    screenshots: [         // صور الـ detail page — زيد وحيد على الأقل
-      "screens/beamng_1.jpg",
-      "screens/beamng_2.jpg",
-      "screens/beamng_3.jpg",
+    icon: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663324007517/vPwoekGIkGQSnGlF.png",
+    screenshots: [
+      "https://files.manuscdn.com/user_upload_by_module/session_file/310519663324007517/VyPdizVGLOXuycml.jpg",
+      "https://files.manuscdn.com/user_upload_by_module/session_file/310519663324007517/SssjOpcRDQxSPXrL.jpg"
     ],
     version: "v1.0",
     date: "January 14, 2025",
@@ -239,36 +238,37 @@ const apps = [
     size: "1.2 GB",
     stars: 4,
     desc: "Realistic Soft-Body Physics Simulation",
-    android_link: "YOUR_OGADS_LINK_HERE",
-    ios_link: "YOUR_OGADS_LINK_HERE",
+    android_link: "#",
+    ios_link: "#",
   },
   {
     id: 2,
-    name: "GTA V Mobile",
+    name: "GTA V MODE ANIME",
     type: "game",
     category: "openworld",
-    icon: "icons/gtav.png",
+    icon: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663324007517/ZzWADepMUSYmEhHU.jpg",
     screenshots: [
-      "screens/gtav_1.jpg",
-      "screens/gtav_2.jpg",
+      "https://files.manuscdn.com/user_upload_by_module/session_file/310519663324007517/bhQbiEtDqpWIdaZq.jpg",
+      "https://files.manuscdn.com/user_upload_by_module/session_file/310519663324007517/KWkguMvcrpjQGccv.jpg",
+      "https://files.manuscdn.com/user_upload_by_module/session_file/310519663324007517/oUSeviOyjiDSitll.jpg"
     ],
-    version: "v1.1",
-    date: "January 20, 2025",
-    appname: "com.gtav.mobile",
-    size: "2.8 GB",
+    version: "v2.0-Anime",
+    date: "March 24, 2026",
+    appname: "com.gtav.anime.mod",
+    size: "3.5 GB",
     stars: 5,
-    desc: "Open World Action Adventure",
-    android_link: "YOUR_OGADS_LINK_HERE",
-    ios_link: "YOUR_OGADS_LINK_HERE",
+    desc: "Experience Los Santos with stunning Anime visuals and characters!",
+    android_link: "#",
+    ios_link: "#",
   },
   {
     id: 3,
     name: "Game Booster Pro",
-    type: "tool",           // هدا tool مش game
+    type: "tool",
     category: "tool",
-    icon: "icons/booster.png",
+    icon: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663324007517/SGRbbVbufdIlDqhl.jpg",
     screenshots: [
-      "screens/booster_1.jpg",
+      "https://files.manuscdn.com/user_upload_by_module/session_file/310519663324007517/SGRbbVbufdIlDqhl.jpg"
     ],
     version: "v3.2",
     date: "February 5, 2025",
@@ -276,18 +276,15 @@ const apps = [
     size: "45 MB",
     stars: 4,
     desc: "Boost your phone performance for gaming",
-    android_link: "YOUR_OGADS_LINK_HERE",
-    ios_link: "YOUR_OGADS_LINK_HERE",
-  },
-  // ← زيد كثر من هنا بنفس الشكل
+    android_link: "#",
+    ios_link: "#",
+  }
 ];
-// ================================================================
 
 let curTab = 'all';
 let ssIndex = 0;
 let ssSlides = [];
 
-// ---- RENDER CARDS ----
 function renderCards() {
   const q = document.getElementById('searchInput').value.toLowerCase();
   const list = document.getElementById('cardsList');
@@ -310,8 +307,7 @@ function renderCards() {
   list.innerHTML = filtered.map(a => `
     <div class="card" onclick="openDetail(${a.id})">
       <div class="card-icon">
-        <img src="${a.icon}" alt="${a.name}"
-          onerror="this.outerHTML='<div class=\'card-icon-ph\'>No IMG</div>'">
+        <img src="${a.icon}" alt="${a.name}" onerror="this.outerHTML='<div class=\'card-icon-ph\'>No IMG</div>'">
       </div>
       <div class="card-info">
         <div class="card-name">${a.name}</div>
@@ -336,11 +332,8 @@ function setTab(tab, btn) {
   renderCards();
 }
 
-// ---- DETAIL PAGE ----
 function openDetail(id) {
   const a = apps.find(x => x.id === id);
-
-  // fill info
   document.getElementById('dIcon').src = a.icon;
   document.getElementById('dName').textContent = a.name;
   document.getElementById('dSub').textContent = a.desc;
@@ -349,25 +342,27 @@ function openDetail(id) {
   document.getElementById('dVersion').textContent = a.version;
   document.getElementById('dCategory').textContent = a.category;
   document.getElementById('dSize').textContent = a.size;
-
-  // stars
   document.getElementById('dStars').innerHTML =
     [1,2,3,4,5].map(i=>`<span style="color:${i<=a.stars?'#f5a623':'#2a2a2a'};font-size:14px;">★</span>`).join('') +
     `<span style="font-size:12px;color:#666;margin-left:4px;">${a.stars}.0</span>`;
+  
+  // Update onclick for detail buttons - combining og_load and link opening if needed, 
+  // but user requested og_load specifically.
+  document.getElementById('dlAndroid').onclick = () => {
+      if(typeof og_load === 'function') og_load();
+      window.open(a.android_link, '_blank');
+  };
+  document.getElementById('dlIOS').onclick = () => {
+      if(typeof og_load === 'function') og_load();
+      window.open(a.ios_link, '_blank');
+  };
 
-  // download buttons
-  document.getElementById('dlAndroid').onclick = () => window.open(a.android_link, '_blank');
-  document.getElementById('dlIOS').onclick = () => window.open(a.ios_link, '_blank');
-
-  // build screenshot slider
   const ss = document.getElementById('ssSlider');
   ssSlides = a.screenshots;
   ssIndex = 0;
-
   ss.innerHTML = ssSlides.map((src, i) => `
     <div class="ss-slide ${i===0?'active':''}" data-idx="${i}">
-      <img src="${src}" alt="screenshot ${i+1}"
-        onerror="this.style.display='none'">
+      <img src="${src}" alt="screenshot ${i+1}" onerror="this.style.display='none'">
     </div>
   `).join('') +
   (ssSlides.length > 1 ? `
@@ -377,7 +372,6 @@ function openDetail(id) {
       ${ssSlides.map((_,i)=>`<button class="ss-dot ${i===0?'active':''}" onclick="ssGoTo(${i})"></button>`).join('')}
     </div>
   ` : '');
-
   document.getElementById('detailPage').classList.add('open');
   document.getElementById('detailPage').scrollTop = 0;
 }
@@ -397,11 +391,9 @@ function closeDetail() {
   document.getElementById('detailPage').classList.remove('open');
 }
 
-// ---- MAIN SLIDER ----
 let mCur = 0;
 const mSlides = document.querySelectorAll('#mainSlider .slide');
 const mDots = document.querySelectorAll('#mainDots .dot');
-
 function mainGoTo(n) {
   mSlides[mCur].classList.remove('active');
   mDots[mCur].classList.remove('active');
@@ -409,10 +401,7 @@ function mainGoTo(n) {
   mSlides[mCur].classList.add('active');
   mDots[mCur].classList.add('active');
 }
-
 setInterval(() => mainGoTo((mCur + 1) % mSlides.length), 3500);
-
-// ---- INIT ----
 renderCards();
 </script>
 </body>
