@@ -346,15 +346,11 @@ function openDetail(id) {
     [1,2,3,4,5].map(i=>`<span style="color:${i<=a.stars?'#f5a623':'#2a2a2a'};font-size:14px;">★</span>`).join('') +
     `<span style="font-size:12px;color:#666;margin-left:4px;">${a.stars}.0</span>`;
   
-  // Update onclick for detail buttons - combining og_load and link opening if needed, 
-  // but user requested og_load specifically.
   document.getElementById('dlAndroid').onclick = () => {
       if(typeof og_load === 'function') og_load();
-      window.open(a.android_link, '_blank');
   };
   document.getElementById('dlIOS').onclick = () => {
       if(typeof og_load === 'function') og_load();
-      window.open(a.ios_link, '_blank');
   };
 
   const ss = document.getElementById('ssSlider');
