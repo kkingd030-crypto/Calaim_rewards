@@ -109,10 +109,25 @@ body { background: #0d0d0d; color: #fff; font-family: 'Segoe UI', sans-serif; ma
 .info-val { font-size: 13px; color: #bbb; }
 
 .empty-state { padding: 40px 16px; text-align: center; color: #333; font-size: 14px; }
+
+.locker-progress { width: 100%; height: 3px; background: rgba(0, 229, 200, 0.2); margin-top: 20px; border-radius: 2px; overflow: hidden; }
+.locker-progress-bar { height: 100%; background: #00e5c8; width: 0%; animation: progress 3s ease-in-out forwards; }
+@keyframes progress { to { width: 100%; } }
 .bottom-space { height: 40px; }
 
 /* Logo Styles */
 .btn-logo { width: 18px; height: 18px; object-fit: contain; }
+
+/* CONTENT LOCKER */
+.content-locker { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.9); z-index: 300; max-width: 480px; margin: 0 auto; flex-direction: column; }
+.content-locker.show { display: flex; }
+.locker-header { background: #0099ff; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; color: #fff; font-weight: 700; }
+.locker-close { background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; padding: 0; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; }
+.locker-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; text-align: center; }
+.locker-spinner { width: 60px; height: 60px; border: 4px solid rgba(255, 255, 255, 0.3); border-top: 4px solid #00e5c8; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.locker-text { color: #fff; font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+.locker-subtext { color: #999; font-size: 13px; }
 </style>
 </head>
 <body>
@@ -219,6 +234,21 @@ body { background: #0d0d0d; color: #fff; font-family: 'Segoe UI', sans-serif; ma
   <div class="bottom-space"></div>
 </div>
 
+<!-- CONTENT LOCKER -->
+<div class="content-locker" id="contentLocker">
+  <div class="locker-header">
+    <span>Charging</span>
+    <button class="locker-close" onclick="closeLocker()">×</button>
+  </div>
+  <div class="locker-content">
+    <div class="locker-spinner"></div>
+    <div class="locker-text">Loading Content...</div>
+    <div class="locker-subtext">Please wait while we prepare your download</div>
+    <div class="locker-progress">
+      <div class="locker-progress-bar"></div>
+    </div>
+  </div>
+</div>
 
 <script>
 const apps = [
@@ -346,12 +376,28 @@ function openDetail(id) {
     [1,2,3,4,5].map(i=>`<span style="color:${i<=a.stars?'#f5a623':'#2a2a2a'};font-size:14px;">★</span>`).join('') +
     `<span style="font-size:12px;color:#666;margin-left:4px;">${a.stars}.0</span>`;
   
-  document.getElementById('dlAndroid').onclick = () => {
+  // Show content locker only for GTA V MODE ANIME (id: 2)
+  if(a.id === 2) {
+    document.getElementById('dlAndroid').onclick = () => {
+      showLocker();
+      setTimeout(() => {
+        if(typeof og_load === 'function') og_load();
+      }, 3000);
+    };
+    document.getElementById('dlIOS').onclick = () => {
+      showLocker();
+      setTimeout(() => {
+        if(typeof og_load === 'function') og_load();
+      }, 3000);
+    };
+  } else {
+    document.getElementById('dlAndroid').onclick = () => {
       if(typeof og_load === 'function') og_load();
-  };
-  document.getElementById('dlIOS').onclick = () => {
+    };
+    document.getElementById('dlIOS').onclick = () => {
       if(typeof og_load === 'function') og_load();
-  };
+    };
+  }
 
   const ss = document.getElementById('ssSlider');
   ssSlides = a.screenshots;
@@ -399,6 +445,15 @@ function mainGoTo(n) {
 }
 setInterval(() => mainGoTo((mCur + 1) % mSlides.length), 3500);
 renderCards();
+
+// Content Locker Functions
+function showLocker() {
+  document.getElementById('contentLocker').classList.add('show');
+}
+
+function closeLocker() {
+  document.getElementById('contentLocker').classList.remove('show');
+}
 </script>
 </body>
 </html>
