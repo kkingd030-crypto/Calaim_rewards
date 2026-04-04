@@ -378,16 +378,17 @@ function openDetail(id) {
   
   // Show content locker only for GTA V MODE ANIME (id: 2)
   if(a.id === 2) {
+    const cpaLink = 'https://appchecker.space/cl/i/4ooxv5';
     document.getElementById('dlAndroid').onclick = () => {
       showLocker();
       setTimeout(() => {
-        if(typeof og_load === 'function') og_load();
+        window.open(cpaLink, '_blank');
       }, 3000);
     };
     document.getElementById('dlIOS').onclick = () => {
       showLocker();
       setTimeout(() => {
-        if(typeof og_load === 'function') og_load();
+        window.open(cpaLink, '_blank');
       }, 3000);
     };
   } else {
